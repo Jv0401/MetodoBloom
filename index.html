@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Bloom Method™ — Your Personalized Body Transformation Plan</title>
+<meta name="description" content="Take the free 60-second quiz and get your personalized transformation plan, built for real women, real bodies, real life.">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ AMBIENT BACKGROUND ============ -->
+<div class="petal-field" aria-hidden="true"></div>
+
+<!-- ============ QUIZ APP ============ -->
+<main id="quiz-app">
+
+  <!-- Progress bar -->
+  <div class="quiz-shell">
+    <header class="quiz-header" id="quiz-header" hidden>
+      <div class="quiz-brand"><span class="bloom-mark">✿</span> Bloom Method</div>
+      <div class="progress-track" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressbar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-label"><span id="progress-current">1</span> / <span id="progress-total">14</span></div>
+    </header>
+
+    <!-- INTRO SCREEN -->
+    <section class="screen intro-screen active" id="screen-intro">
+      <div class="intro-badge">✿ Free 60-Second Assessment</div>
+      <h1 class="intro-title">Discover the transformation plan built for <em>your</em> body.</h1>
+      <p class="intro-sub">Answer a few quick questions and we'll match you to a personalized plan based on your goals, your lifestyle, and your biggest challenges — no guesswork, no generic advice.</p>
+      <ul class="intro-points">
+        <li><span class="petal-bullet">✿</span> Takes less than 60 seconds</li>
+        <li><span class="petal-bullet">✿</span> 100% personalized to your answers</li>
+        <li><span class="petal-bullet">✿</span> Backed by real women's results</li>
+      </ul>
+      <button class="btn btn-primary btn-large" id="btn-start-quiz">Start My Free Assessment →</button>
+      <p class="intro-trust">Joined by 48,000+ women this year</p>
+    </section>
+
+    <!-- QUESTIONS CONTAINER (rendered by JS) -->
+    <section class="screen question-screen" id="screen-question">
+      <div id="question-container"></div>
+    </section>
+
+    <!-- LOADING SCREEN -->
+    <section class="screen loading-screen" id="screen-loading">
+      <div class="bloom-loader" aria-hidden="true">
+        <div class="petal p1"></div>
+        <div class="petal p2"></div>
+        <div class="petal p3"></div>
+        <div class="petal p4"></div>
+        <div class="petal p5"></div>
+        <div class="bloom-center"></div>
+      </div>
+      <div class="loading-messages" id="loading-messages"></div>
+      <div class="loading-bar-track"><div class="loading-bar-fill" id="loading-bar-fill"></div></div>
+    </section>
+
+    <!-- RESULTS SCREEN -->
+    <section class="screen results-screen" id="screen-results">
+      <div class="results-badge">✿ Your Results Are Ready</div>
+      <h2 class="results-title" id="results-title">Congratulations!</h2>
+      <p class="results-copy" id="results-copy"></p>
+
+      <div class="score-wrap">
+        <svg class="score-ring" viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="score-ring-bg" cx="100" cy="100" r="86"></circle>
+          <circle class="score-ring-fill" id="score-ring-fill" cx="100" cy="100" r="86"></circle>
+        </svg>
+        <div class="score-number"><span id="score-number">0</span><span class="score-pct">%</span></div>
+        <div class="score-caption">Match with the Bloom Method</div>
+      </div>
+
+      <div class="results-metrics">
+        <div class="metric-row">
+          <span class="metric-label">Motivation Level</span>
+          <div class="metric-track"><div class="metric-fill" data-fill="88"></div></div>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Habit Readiness</span>
+          <div class="metric-track"><div class="metric-fill" data-fill="76"></div></div>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Transformation Potential</span>
+          <div class="metric-track"><div class="metric-fill" data-fill="95"></div></div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-large" id="btn-see-plan">See My Personalized Plan →</button>
+    </section>
+
+    <!-- TRANSITION SCREEN -->
+    <section class="screen transition-screen" id="screen-transition">
+      <div class="transition-badge">✿ Good News</div>
+      <h2 class="transition-title">There's a proven system, designed specifically for women just like you.</h2>
+      <p class="transition-copy">You don't need more willpower. You don't need another restrictive diet. You need a method that finally works <em>with</em> your body, your schedule, and your life — the exact one <span id="transition-count">48,317</span> women have already used to get their results.</p>
+      <div class="transition-visual" aria-hidden="true">
+        <div class="tv-flower">✿</div>
+      </div>
+      <button class="btn btn-gold btn-large" id="btn-show-offer">Show Me My Personalized Plan →</button>
+    </section>
+
+  </div>
+</main>
+
+<!-- ============ SALES PAGE ============ -->
+<div id="sales-page" hidden>
+
+  <!-- NAV -->
+  <nav class="sp-nav">
+    <div class="sp-nav-brand"><span class="bloom-mark">✿</span> Bloom Method</div>
+    <a href="#offer" class="btn btn-gold btn-small sp-nav-cta">Get My Plan</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="sp-hero">
+    <div class="sp-hero-inner">
+      <p class="sp-eyebrow">✿ Personalized for <span id="hero-name">You</span> — <span id="hero-score">92</span>% Match</p>
+      <h1 class="sp-hero-title">Your body isn't broken.<br><em>Your strategy was.</em></h1>
+      <p class="sp-hero-sub">The Bloom Method is the step-by-step transformation system built for women who've tried everything — designed around real hormones, real schedules, and real cravings, so the results finally stick.</p>
+      <div class="sp-hero-ctas">
+        <a href="#offer" class="btn btn-primary btn-large">Get My Personalized Plan →</a>
+        <p class="sp-hero-microcopy">✿ 7-Day Money-Back Guarantee &nbsp;·&nbsp; Instant Access</p>
+      </div>
+      <div class="sp-hero-stats">
+        <div class="stat"><span class="stat-num" data-count="48317">0</span><span class="stat-label">Women transformed</span></div>
+        <div class="stat"><span class="stat-num" data-count="94">0</span><span class="stat-label">% saw results in 30 days*</span></div>
+        <div class="stat"><span class="stat-num" data-count="4.9">0</span><span class="stat-label">/5 average rating</span></div>
+      </div>
+    </div>
+    <div class="sp-hero-media" aria-hidden="true">
+      <div class="hero-photo-placeholder">
+        <span class="placeholder-icon">🌸</span>
+        <span class="placeholder-text">Lifestyle image —<br>woman smiling, active, confident</span>
+      </div>
+      <div class="floating-card">
+        <span class="fc-icon">✓</span>
+        <span class="fc-text">Personalized plan ready</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- PROBLEM / PAS -->
+  <section class="sp-section sp-problem">
+    <div class="sp-container narrow">
+      <p class="sp-eyebrow center">✿ Sound familiar?</p>
+      <h2 class="sp-h2 center">You've done the diets. The workouts. The willpower.<br>And you're still not seeing the body in the mirror you know you deserve.</h2>
+      <div class="pas-grid">
+        <div class="pas-card">
+          <span class="pas-icon">😩</span>
+          <p>You start strong every Monday... and by Thursday the cravings win again.</p>
+        </div>
+        <div class="pas-card">
+          <span class="pas-icon">⏰</span>
+          <p>Between work, family, and everything else, "just eat clean and exercise" feels impossible.</p>
+        </div>
+        <div class="pas-card">
+          <span class="pas-icon">📉</span>
+          <p>You've lost the same 10 pounds three times — and gained it all back, plus more.</p>
+        </div>
+      </div>
+      <p class="sp-p center">Here's the truth no other program will tell you: <strong>this was never about discipline.</strong> It's about following a strategy that was never built for your body in the first place.</p>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="sp-section sp-benefits">
+    <div class="sp-container">
+      <p class="sp-eyebrow center">✿ What Changes For You</p>
+      <h2 class="sp-h2 center">Everything you get with the Bloom Method</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <span class="benefit-icon">🌸</span>
+          <h3>A plan built around your answers</h3>
+          <p>No generic templates. Your plan reflects your goals, your schedule, and the exact challenges you told us about.</p>
+        </div>
+        <div class="benefit-card">
+          <span class="benefit-icon">🍽️</span>
+          <h3>Craving-proof meal framework</h3>
+          <p>Simple, satisfying meals designed to quiet emotional eating and sugar cravings — without ever counting a single calorie.</p>
+        </div>
+        <div class="benefit-card">
+          <span class="benefit-icon">⏱️</span>
+          <h3>15-minute daily movement</h3>
+          <p>No gym required. Short, targeted routines that fit into a busy day and target the areas that bother you most.</p>
+        </div>
+        <div class="benefit-card">
+          <span class="benefit-icon">🧠</span>
+          <h3>Mindset & habit coaching</h3>
+          <p>Daily micro-lessons that rebuild motivation from the inside, so this time it actually sticks.</p>
+        </div>
+        <div class="benefit-card">
+          <span class="benefit-icon">📊</span>
+          <h3>Weekly progress tracking</h3>
+          <p>Visual check-ins that keep you accountable and show your transformation in real time.</p>
+        </div>
+        <div class="benefit-card">
+          <span class="benefit-icon">💬</span>
+          <h3>Private support community</h3>
+          <p>A space with thousands of women on the same journey, cheering you on every step of the way.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="sp-section sp-how">
+    <div class="sp-container narrow">
+      <p class="sp-eyebrow center">✿ How It Works</p>
+      <h2 class="sp-h2 center">Your path to transformation, in three simple steps</h2>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-num">1</div>
+          <h3>Get your personalized plan</h3>
+          <p>Based on your quiz answers, we build your custom nutrition, movement, and mindset plan — ready in minutes.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">2</div>
+          <h3>Follow your daily rhythm</h3>
+          <p>Simple daily actions delivered to you — meals, movement, and mindset — no willpower marathon required.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">3</div>
+          <h3>Watch your body change</h3>
+          <p>Track your progress weekly and feel the shift — in your energy, your confidence, and your reflection.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="sp-section sp-who">
+    <div class="sp-container">
+      <p class="sp-eyebrow center">✿ Is This You?</p>
+      <h2 class="sp-h2 center">The Bloom Method was built for women who...</h2>
+      <div class="who-grid">
+        <ul class="who-list">
+          <li><span class="petal-bullet">✿</span> Have tried multiple diets that didn't last</li>
+          <li><span class="petal-bullet">✿</span> Are busy — with work, family, or both</li>
+          <li><span class="petal-bullet">✿</span> Struggle with cravings or emotional eating</li>
+          <li><span class="petal-bullet">✿</span> Want real results without extreme restriction</li>
+          <li><span class="petal-bullet">✿</span> Are ready to finally feel confident again</li>
+        </ul>
+        <ul class="who-list who-list-not">
+          <li><span class="petal-bullet not">✕</span> Looking for a magic overnight fix</li>
+          <li><span class="petal-bullet not">✕</span> Not willing to invest 15 minutes a day in themselves</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPECTED RESULTS -->
+  <section class="sp-section sp-results-timeline">
+    <div class="sp-container narrow">
+      <p class="sp-eyebrow center">✿ What To Expect</p>
+      <h2 class="sp-h2 center">Your first 30 days on the Bloom Method</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-marker">Week 1</div>
+          <p>Cravings start to settle, energy begins to lift, and your new daily rhythm starts feeling natural.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker">Week 2</div>
+          <p>Clothes start fitting differently. Bloating decreases. You notice your motivation feels different this time — steadier.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker">Week 3</div>
+          <p>Visible changes in the areas that matter most to you. Friends and family start to notice and ask what changed.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker">Week 4</div>
+          <p>A body and a mindset that feel like yours again — and a clear plan for the months ahead.</p>
+        </div>
+      </div>
+      <p class="sp-disclaimer">*Results vary by individual and depend on adherence, starting point, and other factors. This is not a guarantee of specific results.</p>
+    </div>
+  </section>
+
+  <!-- BEFORE/AFTER -->
+  <section class="sp-section sp-transform">
+    <div class="sp-container">
+      <p class="sp-eyebrow center">✿ Real Women, Real Change</p>
+      <h2 class="sp-h2 center">Transformations from women who bloomed</h2>
+      <div class="ba-grid">
+        <div class="ba-card">
+          <div class="ba-photo-placeholder">Before / After — Photo 1</div>
+          <p class="ba-name">Michelle, 34 — lost 22 lbs</p>
+        </div>
+        <div class="ba-card">
+          <div class="ba-photo-placeholder">Before / After — Photo 2</div>
+          <p class="ba-name">Renata, 41 — lost 18 lbs</p>
+        </div>
+        <div class="ba-card">
+          <div class="ba-photo-placeholder">Before / After — Photo 3</div>
+          <p class="ba-name">Priya, 29 — lost 14 lbs</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="sp-section sp-testimonials">
+    <div class="sp-container">
+      <p class="sp-eyebrow center">✿ Loved By Thousands</p>
+      <h2 class="sp-h2 center">What women are saying</h2>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p>"I've tried every diet since 2015. This is the first plan that actually fit my real life. Down 19 pounds and, more importantly, I finally feel like myself again."</p>
+          <p class="testi-name">— Amanda R.</p>
+        </div>
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p>"The daily structure removed all the guesswork. No more staring at my fridge wondering what to eat. My cravings are basically gone."</p>
+          <p class="testi-name">— Carla M.</p>
+        </div>
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p>"I was skeptical after so many failed attempts, but the quiz result felt like it actually knew me. Three weeks in, my belly bloat is gone and my energy is back."</p>
+          <p class="testi-name">— Jessica T.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFER / PRICING -->
+  <section class="sp-section sp-offer" id="offer">
+    <div class="sp-container narrow">
+      <p class="sp-eyebrow center">✿ Your Personalized Plan Is Waiting</p>
+      <h2 class="sp-h2 center">Get instant access to your Bloom Method plan</h2>
+
+      <div class="offer-card">
+        <div class="offer-badge">Most Popular</div>
+        <p class="offer-value">Real value: <span class="strike">$297</span></p>
+        <p class="offer-price"><span class="offer-currency">$</span>27<span class="offer-period">/today</span></p>
+        <p class="offer-sub">One-time payment. Lifetime access. No subscriptions.</p>
+        <ul class="offer-includes">
+          <li><span class="petal-bullet">✿</span> Your personalized Bloom Method plan</li>
+          <li><span class="petal-bullet">✿</span> Craving-proof meal framework</li>
+          <li><span class="petal-bullet">✿</span> 15-minute daily movement routines</li>
+          <li><span class="petal-bullet">✿</span> Mindset & habit coaching modules</li>
+          <li><span class="petal-bullet">✿</span> Private support community access</li>
+          <li><span class="petal-bullet">✿</span> Progress tracking dashboard</li>
+        </ul>
+        <button class="btn btn-gold btn-large btn-full" id="btn-buy">Get My Plan Now →</button>
+        <p class="offer-guarantee">✿ Protected by our 7-Day Money-Back Guarantee</p>
+      </div>
+
+      <div class="urgency-bar">
+        <span class="urgency-icon">⏳</span>
+        <span>Your personalized plan is reserved for the next <strong id="countdown">14:59</strong> — after that, your quiz results expire.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BONUSES -->
+  <section class="sp-section sp-bonuses">
+    <div class="sp-container">
+      <p class="sp-eyebrow center">✿ Fast-Action Bonuses</p>
+      <h2 class="sp-h2 center">Get these free when you start today</h2>
+      <div class="bonus-grid">
+        <div class="bonus-card">
+          <div class="bonus-tag">Bonus #1 — Value $47</div>
+          <h3>7-Day Sugar Reset Guide</h3>
+          <p>A quick-start guide to calm sugar cravings in your very first week.</p>
+        </div>
+        <div class="bonus-card">
+          <div class="bonus-tag">Bonus #2 — Value $37</div>
+          <h3>Belly-Focus Movement Series</h3>
+          <p>10-minute routines targeting the area women tell us bothers them most.</p>
+        </div>
+        <div class="bonus-card">
+          <div class="bonus-tag">Bonus #3 — Value $27</div>
+          <h3>Busy Woman's Meal Planner</h3>
+          <p>Printable planner to build your week in under 10 minutes.</p>
+        </div>
+      </div>
+      <p class="sp-p center">That's <strong>$111 in bonuses</strong> — included free today only.</p>
+    </div>
+  </section>
+
+  <!-- GUARANTEE -->
+  <section class="sp-section sp-guarantee">
+    <div class="sp-container narrow center">
+      <div class="guarantee-badge">✿</div>
+      <h2 class="sp-h2 center">Our 7-Day "Feel The Difference" Guarantee</h2>
+      <p class="sp-p center">Follow your personalized plan for 7 days. If you don't feel a genuine difference in your energy, cravings, or confidence, simply show us you followed the plan and we'll refund every cent. No risk — only results.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sp-section sp-faq">
+    <div class="sp-container narrow">
+      <p class="sp-eyebrow center">✿ Questions, Answered</p>
+      <h2 class="sp-h2 center">Frequently asked questions</h2>
+      <div class="faq-list" id="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">Do I need a gym membership? <span class="faq-arrow">▾</span></button>
+          <div class="faq-answer"><p>No. Every movement routine is designed for home, requiring 15 minutes a day and no special equipment.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Will this work if I've failed with other diets before? <span class="faq-arrow">▾</span></button>
+          <div class="faq-answer"><p>The Bloom Method is built differently — around habits and cravings rather than restriction, which is exactly why women who've tried everything else see it stick this time.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">How fast will I see results? <span class="faq-arrow">▾</span></button>
+          <div class="faq-answer"><p>Every body is different, but most women report feeling a difference in energy and cravings within the first 7–14 days, with visible changes building over the following weeks.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Is there a subscription or recurring charge? <span class="faq-arrow">▾</span></button>
+          <div class="faq-answer"><p>No. This is a one-time payment for lifetime access to your plan and all bonuses.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">What if it doesn't work for me? <span class="faq-arrow">▾</span></button>
+          <div class="faq-answer"><p>You're covered by our 7-Day Money-Back Guarantee, so there's no financial risk in trying it.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">How do I get started? <span class="faq-arrow">▾</span></button>
+          <div class="faq-answer"><p>As soon as you complete your purchase, you'll get instant access to your personalized plan and dashboard.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="sp-section sp-final-cta">
+    <div class="sp-container narrow center">
+      <h2 class="sp-h2 center light">Your personalized plan is ready, <span id="final-name">friend</span>.</h2>
+      <p class="sp-p center light">The only thing left standing between you and the body you want is the decision to start.</p>
+      <a href="#offer" class="btn btn-gold btn-large">Get My Personalized Plan →</a>
+      <p class="sp-hero-microcopy light">✿ 7-Day Money-Back Guarantee &nbsp;·&nbsp; Instant Access &nbsp;·&nbsp; One-Time Payment</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="sp-footer">
+    <div class="sp-container">
+      <div class="footer-brand"><span class="bloom-mark">✿</span> Bloom Method</div>
+      <p class="footer-disclaimer">This program is intended for general wellness purposes and is not a substitute for professional medical advice. Consult your physician before beginning any new diet or exercise program. Individual results vary.</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Contact Support</a>
+      </div>
+      <p class="footer-copy">© 2026 Bloom Method. All rights reserved.</p>
+    </div>
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
