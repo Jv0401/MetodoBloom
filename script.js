@@ -495,7 +495,7 @@
   // Buy button (placeholder — wire up to real checkout provider)
   document.getElementById("btn-buy").addEventListener("click", (e) => {
     e.preventDefault();
-    alert("This is a demo funnel. Connect this button to your checkout provider (Stripe, PayPal, etc.) to accept real payments.");
+    window.location.href = "https://pay.kiwify.com.br/C8MHaaP";
   });
 
   // Smooth scroll for in-page anchors
