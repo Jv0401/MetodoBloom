@@ -492,10 +492,10 @@
   }
   startCountdown();
 
-  // Buy button (placeholder — wire up to real checkout provider)
+  // Buy button — sends the person to your real checkout
   document.getElementById("btn-buy").addEventListener("click", (e) => {
     e.preventDefault();
-    window.location.href = "https://pay.kiwify.com.br/C8MHaaP";
+    window.location.href = "https://kiwify.app/lH1kX7C";
   });
 
   // Smooth scroll for in-page anchors
