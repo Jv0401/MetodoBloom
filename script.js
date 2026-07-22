@@ -495,7 +495,7 @@
   // Buy button — sends the person to your real checkout
   document.getElementById("btn-buy").addEventListener("click", (e) => {
     e.preventDefault();
-    window.location.href = "https://kiwify.app/lH1kX7C";
+    window.location.href = "https://pay.kiwify.com.br/C8MHaaP";
   });
 
   // Smooth scroll for in-page anchors
